@@ -1,50 +1,52 @@
-<div class="show-job" style="margin-bottom:100px">
-  <div class="card" style="display:flex; flex-direction:row">
-    <div class="card-body" style="width:60%">
-    <div class="card-title-show">
-       <%= cl_image_tag @job.photo.key if @job.photo.attached? %>
-       <div>
-        <p class="job-title"><%= @job.job_title %></p>
+<div class="container">
+  <div class="show-job" style="margin-bottom:100px">
+    <div class="card" style="display:flex; flex-direction:row">
+      <div class="card-body" style="width:60%">
+      <div class="card-title-show">
+        <%= cl_image_tag @job.photo.key if @job.photo.attached? %>
         <div>
-         <i class="fa-solid fa-location-dot"></i> <%= @job.location %>
-          <i class="fa-solid fa-clock part-time-btn"></i> Part-time
+          <p class="job-title"><%= @job.job_title %></p>
+          <div>
+          <i class="fa-solid fa-location-dot"></i> <%= @job.location %>
+            <i class="fa-solid fa-clock part-time-btn"></i> Part-time
+          </div>
         </div>
-       </div>
-     </div>
-      <h4>Company  name:</h4>
-      <p class="card-text"><%= @job.company_name %></p>
-      <h4>Company description: </h4>
-      <p class="card-text"><%= @job.company_description %></p>
-      <h4>Company size</h4>
-      <p class="card-text"><%= @job.company_size %></p>
-      <h4>Location: </h4>
-      <p class="card-text"><%= @job.location %></p>
-      <h4>Job Description: </h4>
-      <p class="card-text"><%= @job.job_description %></p>
-      <h4>Salary: </h4>
-      <p class="card-text"><%= @job.salary %></p>
-      <%= link_to "Apply now", job_job_applications_path(@job), data: { turbo_method: :post }, class: "btn btn-primary apply-now-button", style: "width:200px;" %>
+      </div>
+        <h4>Company  name:</h4>
+        <p class="card-text"><%= @job.company_name %></p>
+        <h4>Company description: </h4>
+        <p class="card-text"><%= @job.company_description %></p>
+        <h4>Company size</h4>
+        <p class="card-text"><%= @job.company_size %></p>
+        <h4>Location: </h4>
+        <p class="card-text"><%= @job.location %></p>
+        <h4>Job Description: </h4>
+        <p class="card-text"><%= @job.job_description %></p>
+        <h4>Salary: </h4>
+        <p class="card-text"><%= @job.salary %></p>
+        <%= link_to "Apply now", job_job_applications_path(@job), data: { turbo_method: :post }, class: "btn btn-primary apply-now-button", style: "width:200px;" %>
 
 
-      <% if Favourite.where(job: @job, user: current_user).empty? %>
-        <%= button_to job_favourites_path(@job), class:"fav_button" do %>
-              <i class="fa-regular fa-heart"></i>
+        <% if Favourite.where(job: @job, user: current_user).empty? %>
+          <%= button_to job_favourites_path(@job), class:"fav_button" do %>
+                <i class="fa-regular fa-heart"></i>
+          <% end %>
+        <% else %>
+          <p>This job is already in your Favourites.</p>
+          <%= link_to favourite_path(Favourite.where(job: @job, user: current_user).last), data: {turbo_method: :delete } do %>
+            <i class="fa-solid fa-heart"></i>
+          <% end %>
         <% end %>
-      <% else %>
-        <p>This job is already in your Favourites.</p>
-        <%= link_to favourite_path(Favourite.where(job: @job, user: current_user).last), data: {turbo_method: :delete } do %>
-          <i class="fa-solid fa-heart"></i>
-        <% end %>
-      <% end %>
+      </div>
+      <div class="card-body" style="width:30%; height:400px">
+      <p class="job-title" style="border-bottom: 1px solid #EAEAEA">Job Description</p>
+        <p> Published on: 12 Nov, 2019 </p>
+        <p> Vacancy: 2 Position </p>
+        <p>Salary: 50k - 120k/y </p>
+        <p> Location: California, USA </p>
+        <p>Job Nature: Full-time
+      </div>
     </div>
-    <div class="card-body" style="width:30%; height:400px">
-    <p class="job-title" style="border-bottom: 1px solid #EAEAEA">Job Description</p>
-      <p> Published on: 12 Nov, 2019 </p>
-      <p> Vacancy: 2 Position </p>
-      <p>Salary: 50k - 120k/y </p>
-      <p> Location: California, USA </p>
-      <p>Job Nature: Full-time
-    </div>
+
   </div>
-
 </div>
